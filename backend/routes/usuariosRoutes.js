@@ -1,8 +1,8 @@
 import express from 'express'
+import { registrar } from '../controllers/usuarioController.js';
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Desde api/Usuarios')
-}) //Obtiene el URL actual, es decir "/api/usuarios"
+// Autenticación, registro y confirmación de usuarios
+router.post('/', registrar) //Crea un nuevo user
 
 export default router //Lo exporta
