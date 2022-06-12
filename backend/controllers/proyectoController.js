@@ -1,7 +1,9 @@
 import Proyecto from "../models/Proyecto.js"
 
 export const obtenerProyectos = async (req, res) => {
-    res.send('s')
+    const proyectos = await Proyecto.find().where("creador").equals(req.usuario)
+
+    res.json(proyectos)
 }
 
 export const nuevoProyecto = async (req, res) => {
@@ -17,7 +19,11 @@ export const nuevoProyecto = async (req, res) => {
     }
 }
 
-export const obtenerPoryecto = async (req, res) => {}
+export const obtenerPoryecto = async (req, res) => {
+    const { id } = req.params
+
+    console.log(id)
+}
 
 export const editarProyecto = async (req, res) => {}
 
