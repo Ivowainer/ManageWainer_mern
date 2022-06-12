@@ -46,15 +46,16 @@ export const autenticar = async (req, res) => {
 
     //Comprobar password
     if(await usuario.comprobarPassword(password)){
-        console.log('es correcto')
-    } else {
-        const error = new Error('La contraseña es incorrecta')
         return res.status(403).json({ 
             _id: usuario._id,
             nombre: usuario.nombre,
             email: usuario.email,
             token: generarJWT(usuario._id)
          })
+    } else {
+        const error = new Error('La contraseña es incorrecta')
+        
+        return res.json({ msg: error.message })
     }
 }
 
@@ -133,4 +134,10 @@ export const nuevoPassword = async (req, res) => {
         const error = new Error("Token no válido")
         return res.status(404).json({ msg: error.message })
     }
+}
+
+export const perfil = async (req, res)  => {
+    const { usuario } = req
+
+    res.json(usuario)
 }
