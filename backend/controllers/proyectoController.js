@@ -21,8 +21,25 @@ export const nuevoProyecto = async (req, res) => {
 
 export const obtenerPoryecto = async (req, res) => {
     const { id } = req.params
+    
+    try {
+        const proyecto = await Proyecto.findById(id)
 
-    console.log(id)
+        if(!proyecto){
+            const error = new Error('No encontrado')
+            return res.status(404).json({ msg: error.message })
+        }
+
+        if(proyecto.creador.toString() !== req.usuario._id.toString()) {
+            const error = new Error('No tienes los permisos')
+            return res.status(401).json({ msg: error.message })
+        }
+
+        res.json(proyecto)
+        
+    } catch (error) {
+        return res.status(404).json({ msg: "No encontrado" })
+    }
 }
 
 export const editarProyecto = async (req, res) => {}
