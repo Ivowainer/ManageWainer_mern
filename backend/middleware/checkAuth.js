@@ -14,6 +14,7 @@ const checkAuth = async (req, res, next) => {
 
             return next()
         } catch (error) {
+            /* console.log(error) */
             return res.status(404).json({ msg: "Hubo un error en JWT checkAuth" })
         }
     }
