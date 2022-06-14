@@ -32,3 +32,7 @@ const tareaSchema = mongoose.Schema({
 }, {
     timeStamps: true,
 });
+
+const Tarea = mongoose.model('Tarea', tareaSchema);
+
+export default Tarea
