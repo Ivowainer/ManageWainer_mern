@@ -79,6 +79,23 @@ export const actualizarTarea = async (req, res) => {
 }
 
 export const eliminarTarea = async (req, res) => {
+    //Corrobora que la task exista
+    try {
+        const tarea = await Tarea.findById(req.params.id).populate('proyecto')
+
+        //Corrobora que el usuario y el creador del proyecto sean el mismo
+        if(tarea.proyecto.creador.toString() !== req.usuario._id.toString()){
+            const error = new Error("No tienes permisos suficientes")
+            return res.status(401).json({ msg: error.message })
+        }
+
+        tarea.deleteOne()
+
+        return res.json({ msg: "Se ha eliminado correctamente" })
+    } catch {
+        const error = new Error("Esa tarea no existe")
+        res.status(404).json({ msg: error.message })
+    }
 
 }
 
