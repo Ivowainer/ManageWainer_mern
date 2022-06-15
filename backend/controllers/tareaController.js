@@ -5,6 +5,7 @@ export const agregarTarea = async (req, res) => {
     const { proyecto } = req.body
 
     try {
+        //Corrobora que existe proyecto
         const existeProyecto = await Proyecto.findById(proyecto)
 
         if(existeProyecto.creador.toString() !== req.usuario._id.toString()) {
@@ -12,6 +13,7 @@ export const agregarTarea = async (req, res) => {
             return res.status(404).json({ msg: error.message })
         }
 
+        //Una vez exista, almacena la creación de la tarea 
         try {
             const tareaAlmacenada = await Tarea.create(req.body)
             res.json(tareaAlmacenada)
@@ -46,7 +48,34 @@ export const obtenerTarea = async (req, res) => {
 }
 
 export const actualizarTarea = async (req, res) => {
+    const { id } = req.params
 
+    try {
+        //Corroborar que existe proyecto
+        const tarea = await Tarea.findById(id).populate("proyecto")
+        
+        //Corroborar si el proyecto y el creador son el mismo
+        if(tarea.proyecto.creador.toString() !== req.usuario._id.toString()) {
+            const error = new Error("Acción no valida")
+            return res.status(403).json({ msg: error.message })
+        }
+
+        tarea.nombre = req.body.nombre || tarea.nombre
+        tarea.descripcion = req.body.descripcion || tarea.descripcion
+        tarea.prioridad = req.body.prioridad || tarea.prioridad
+        tarea.fechaEntrega = req.body.fechaEntrega || tarea.fechaEntrega
+
+        try {
+            const tareaAlmacenada = await tarea.save()
+            res.json(tareaAlmacenada)
+        } catch (error) {
+            console.log(error)
+        }
+
+    } catch {
+        const error = new Error("No existe la tarea")
+        return res.status(404).json({ msg: error.message })
+    }
 }
 
 export const eliminarTarea = async (req, res) => {
