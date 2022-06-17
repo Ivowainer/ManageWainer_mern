@@ -12,13 +12,12 @@ app.use(express.json());
 
 // Middl
 dotenv.config()
-
 conectarDB()
 
-/* const whitelist = ['http://localhost:3000'] */
+//Cors
 const corsOptions = {
     origin: function(origin, callback){
-        if(['http://localhost:3000'].includes(origin)){
+        if([process.env.FRONTEND_URL].includes(origin)){
             // Puede consultar la API
             callback(null, true);
         } else {
@@ -28,8 +27,6 @@ const corsOptions = {
     }
 }
 app.use(cors(corsOptions))
-
-
 
 // Routing
 app.use('/api/usuarios', usuarioRoutes)

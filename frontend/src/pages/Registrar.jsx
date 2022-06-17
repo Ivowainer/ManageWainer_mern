@@ -18,6 +18,7 @@ const Registrar = () => {
         msg: 'Todos los campos son obligatorios',
         error: true
       })
+      scrollTo(0, 0)
       return
     }
 
@@ -26,6 +27,8 @@ const Registrar = () => {
         msg: 'Los passwords no son iguales',
         error: true
       })
+      
+      scrollTo(0, 0)
       return
     }
 
@@ -34,6 +37,7 @@ const Registrar = () => {
         msg: 'El password es muy corto, agrega minimo 6 caracteres',
         error: true
       })
+      scrollTo(0, 0)
       return
     }
 
@@ -41,11 +45,24 @@ const Registrar = () => {
 
     // Crear el usuario en la API
     try {
-      const response = await axios.post('http://localhost:4000/api/usuarios', {nombre, email, password} )
+      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios`, {nombre, email, password} )
 
-      console.log(response)
+      setAlerta({
+        msg: data.msg,
+        error: false
+      })
+      scrollTo(0, 0)
+
+      setNombre('')
+      setEmail('')
+      setPassword('')
+      setRepetirPassword('')
     } catch (error) {
-      console.log(error)
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true
+      })
+      scrollTo(0, 0)
     }
   }
 
