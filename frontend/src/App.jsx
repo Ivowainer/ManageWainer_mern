@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Proyectos from './pages/Proyectos'
+import RutaProtegida from './layouts/RutaProtegida'
 import { AuthProvider } from './context/AuthProvider'
 
 // Pages
@@ -20,6 +22,10 @@ function App() {
             <Route path='olvide-password' element={<OlvidePassword />} />
             <Route path='olvide-password/:token' element={<NuevoPassword />} />
             <Route path='confirmar/:id' element={<ConfirmarCuenta />} />
+          </Route>
+
+          <Route path="/proyectos" element={<RutaProtegida />}>
+            <Route index element={<Proyectos />} />
           </Route>
         </Routes>
       </AuthProvider>
