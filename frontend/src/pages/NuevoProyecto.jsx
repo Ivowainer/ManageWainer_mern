@@ -1,10 +1,12 @@
+import FormularioProyecto from "../components/FormularioProyecto"
+
 const NuevoProyecto = () => {
   return (
     <>
-      <h1 className='text-3xl font-black'>Proyectos</h1>
+      <h1 className='text-3xl font-black'>Crear Proyectos</h1>
 
-      <div className="">
-        
+      <div className="mt-10 flex justify-center">
+        <FormularioProyecto />        
       </div>
     </>
   )

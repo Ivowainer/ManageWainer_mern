@@ -3,8 +3,6 @@ import useProyectos from '../hooks/useProyectos'
 const Proyectos = () => {
   const { proyectos } = useProyectos()
 
-  console.log(proyectos)
-
   return (
     <>
       <h1 className='text-3xl font-black'>Proyectos</h1>
