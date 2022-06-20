@@ -55,7 +55,7 @@ export const autenticar = async (req, res) => {
 
     //Comprobar password
     if(await usuario.comprobarPassword(password)){
-        return res.status(403).json({ 
+        res.json({ 
             _id: usuario._id,
             nombre: usuario.nombre,
             email: usuario.email,
@@ -64,7 +64,7 @@ export const autenticar = async (req, res) => {
     } else {
         const error = new Error('La contraseña es incorrecta')
         
-        return res.json({ msg: error.message })
+        return res.status(403).json({ msg: error.message })
     }
 }
 
