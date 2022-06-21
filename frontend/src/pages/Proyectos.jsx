@@ -1,3 +1,4 @@
+import PreviewProyecto from '../components/PreviewProyecto'
 import useProyectos from '../hooks/useProyectos'
 
 const Proyectos = () => {
@@ -8,7 +9,11 @@ const Proyectos = () => {
       <h1 className='text-3xl font-black'>Proyectos</h1>
 
       <div className="bg-white shadow mt-10 rounded-lg">
-        {proyectos.length ? <p>Si hay proyectos</p> : <p className='mt-5 text-center text-gray-600 uppercase p-5'>No hay proyectos aún</p>}
+        {proyectos.length ? 
+          proyectos.map(proyecto => (
+            <PreviewProyecto proyecto={proyecto} key={proyecto._id} />
+          ))
+        : <p className='text-center text-gray-600 p-5 uppercase'>No hay proyectos aún</p>}
       </div>
     </>
   )
