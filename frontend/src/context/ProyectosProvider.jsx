@@ -24,7 +24,7 @@ export const ProyectosProvider = ({ children }) => {
         }
 
         const { data } = await clienteAxios('/proyectos', config)
-        console.log(data)
+        setProyectos(data)
 
       } catch (error) {
         console.log(error)
