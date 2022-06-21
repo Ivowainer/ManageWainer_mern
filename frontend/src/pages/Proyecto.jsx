@@ -10,8 +10,9 @@ const Proyecto = () => {
     obtenerProyecto(params.id)
   }, [])
 
-  return (
-    cargando ? '...' : (
+  if(cargando) return 'Cargando...'
+
+  return ( 
     <div className='flex justify-between'>
       <h1 className='font-black text-4xl'>{proyecto.nombre}</h1>
 
@@ -24,7 +25,6 @@ const Proyecto = () => {
         </Link>
       </div>
     </div>
-    )
   )
 }
 
