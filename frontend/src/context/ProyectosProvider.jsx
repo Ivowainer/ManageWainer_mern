@@ -9,13 +9,15 @@ export const ProyectosProvider = ({ children }) => {
   const [proyecto, setProyecto] = useState({})
   const [alerta, setAlerta] = useState({})
   const [cargando, setCargando] = useState(false)
+  const [modalFormularioTarea, setModalFormularioTarea] = useState(false)
 
   const navigate = useNavigate()
 
   useEffect(() => {
+    const token = localStorage.getItem('token')
+
     const obtenerProyectos = async () => {
       try {
-        const token = localStorage.getItem('token')
         if(!token) return;
 
         const config = {
@@ -28,6 +30,7 @@ export const ProyectosProvider = ({ children }) => {
         const { data } = await clienteAxios('/proyectos', config)
         setProyectos(data)
 
+        
       } catch (error) {
         console.log(error)
       }
@@ -167,6 +170,10 @@ export const ProyectosProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+  const handleModalTarea = () => {
+    setModalFormularioTarea(!modalFormularioTarea)
+  }
   
   return (
     <ProyectosContext.Provider
@@ -178,7 +185,9 @@ export const ProyectosProvider = ({ children }) => {
         obtenerProyecto,
         proyecto,
         cargando,
-        eliminarProyecto
+        eliminarProyecto,
+        modalFormularioTarea,
+        handleModalTarea
       }}
     >{children}
     </ProyectosContext.Provider>
