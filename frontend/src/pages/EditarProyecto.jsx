@@ -1,6 +1,7 @@
 import useProyectos from '../hooks/useProyectos'
 import { useEffect } from 'react'
 import { useParams }from 'react-router-dom'
+import FormularioProyecto from '../components/FormularioProyecto'
 
 const EditarProyecto = () => {
   const params = useParams()
@@ -14,7 +15,12 @@ const EditarProyecto = () => {
   if(cargando) return 'Cargando...'
 
   return (
-    <div>Editar Proyecto {proyecto.nombre}</div>
+    <>
+      <h1 className='font-black text-4xl'>Editar Proyecto: {proyecto.nombre}</h1>
+      <div className="mt-10 flex justify-center">
+        <FormularioProyecto />
+      </div>
+    </>
   )
 }
 
