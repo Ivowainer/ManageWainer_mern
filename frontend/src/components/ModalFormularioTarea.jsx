@@ -135,7 +135,7 @@ const ModalFormularioTarea = () => {
                       </select>
                     </div>
 
-                    <input type="submit" className='bg-sky-600 hover:bg-sky-700 w-full p-3 text-white text-sm uppercase font-bold cursor-pointer transition-colors rounded' value='Crear Tareas' />
+                    <input type="submit" className='bg-sky-600 hover:bg-sky-700 w-full p-3 text-white text-sm uppercase font-bold cursor-pointer transition-colors rounded' value='Crear Tarea' />
                   </form>
 
                 </div>  
