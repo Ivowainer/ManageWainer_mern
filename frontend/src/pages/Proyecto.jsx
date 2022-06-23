@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import useProyectos from '../hooks/useProyectos'
 import ModalFormularioTarea from '../components/ModalFormularioTarea'
@@ -43,7 +43,7 @@ const Proyecto = () => {
 
       <p className='font-bold text-xl mt-10'>Tareas del Proyecto</p>
 
-      <div className="bg-white shadow mt-10 roundedn-lg">
+      <div className=" flex flex-col  mt-10 rounded-lg">
         {proyecto.tareas?.length ? (
           proyecto.tareas?.map(tarea => (
             <Tarea key={tarea._id} tarea={tarea} />
