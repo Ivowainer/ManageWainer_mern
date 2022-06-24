@@ -54,6 +54,14 @@ const Proyecto = () => {
         ) : <p className='text-center my-5 p-10'>No hay tareas en este proyecto</p>}
       </div>
 
+      <div className="flex items-center justify-between mt-10">
+        <p className='font-bold text-xl'>Colaboradores</p>
+
+        <button className='px-4 py-3 bg-gray-700 rounded-md'>
+          <Link to={`/proyectos/nuevo-colaborador/${proyecto._id}`} className="text-white uppercase font-bold">Añadir</Link>
+        </button>
+      </div>
+
       <ModalFormularioTarea />
       <ModalEliminarTarea />
     </>
