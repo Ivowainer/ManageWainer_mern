@@ -1,3 +1,4 @@
+import Usuario from "../models/Usuario.js"
 import Proyecto from "../models/Proyecto.js"
 import Tarea from "../models/Tarea.js"
 
@@ -100,6 +101,19 @@ export const eliminarProyecto = async (req, res) => {
     } catch (error) {
         return res.status(404).json({ msg: "No encontrado" })
     }
+}
+
+export const buscarColaborador = async (req, res) => {
+    const { email } = req.body
+
+    const usuario = await Usuario.findOne({ email }).select('-confirmado -createdAt -password -token -updatedAt -__v')
+
+    if(!usuario){
+        const error = new Error('Usuario no encontrado')
+        return res.status(404).json({ msg: error.message })
+    }
+
+    res.json(usuario)
 }
 
 export const agregarColaborador = async (req, res) => {}
