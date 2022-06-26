@@ -38,14 +38,12 @@ export const obtenerPoryecto = async (req, res) => {
             return res.status(404).json({ msg: error.message })
         }
 
-        if(proyecto.creador.toString() !== req.usuario._id.toString()) {
+        if(proyecto.creador.toString() !== req.usuario._id.toString() && !proyecto.colaboradores.some(colaborador => colaborador._id.toString() === req.usuario._id.toString())) {
             const error = new Error('No tienes los permisos')
             return res.status(401).json({ msg: error.message })
         }
 
-        res.json(
-            proyecto,
-        )
+        res.json(proyecto)
         
     } catch (error) {
         return res.status(404).json({ msg: "No encontrado" })

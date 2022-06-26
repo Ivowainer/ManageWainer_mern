@@ -13,7 +13,7 @@ const Proyectos = () => {
           proyectos.map(proyecto => (
             <PreviewProyecto proyecto={proyecto} key={proyecto._id} />
           ))
-        : <p className='text-center text-gray-600 p-5 uppercase'>No hay proyectos aún</p>}
+        : <p className='text-center text-gray-600 p-5 uppercase my-5 border-b mb-2 bg-white shadow'>No hay proyectos aún</p>}
       </div>
     </>
   )

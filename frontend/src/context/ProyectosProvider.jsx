@@ -48,7 +48,7 @@ export const ProyectosProvider = ({ children }) => {
 
     setTimeout(() => {
       setAlerta({})
-    }, 1500)
+    }, 3000)
   }
 
   const submitProyecto = async proyecto => {
@@ -85,7 +85,7 @@ export const ProyectosProvider = ({ children }) => {
       setTimeout(() => {
         setAlerta({})
         navigate('/proyectos')
-      }, 1500)
+      }, 3000)
     } catch (error) {
       console.log(error)
     }
@@ -116,7 +116,7 @@ export const ProyectosProvider = ({ children }) => {
       setTimeout(() => {
         setAlerta({})
         navigate('/proyectos')
-      }, 1500)
+      }, 3000)
     } catch (error) {
       console.log(error)
     }
@@ -137,6 +137,7 @@ export const ProyectosProvider = ({ children }) => {
 
       const { data } = await clienteAxios(`/proyectos/${id}`, config)
       setProyecto(data)
+      setAlerta({})
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
@@ -172,7 +173,7 @@ export const ProyectosProvider = ({ children }) => {
       setTimeout(() => {
         setAlerta({})
         navigate('/proyectos')
-      }, 1500)
+      }, 3000)
     } catch (error) {
       console.log(error)
     }
@@ -329,7 +330,14 @@ export const ProyectosProvider = ({ children }) => {
         error: false
       })
 
+      
       setColaborador('')
+
+      setTimeout(() => {
+        setAlerta({})
+
+        navigate(-1)
+      }, 3000)
 
     } catch (error) {
       setAlerta({
@@ -367,6 +375,10 @@ export const ProyectosProvider = ({ children }) => {
         msg: data.msg,
         error: false
       })
+
+      setTimeout(() => {
+        setAlerta({})
+      }, 3000)
 
       setColaborador({})
       setModalEliminarColaborador(false)
