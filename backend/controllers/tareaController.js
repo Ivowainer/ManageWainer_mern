@@ -105,5 +105,18 @@ export const eliminarTarea = async (req, res) => {
 }
 
 export const cambiarEstado = async (req, res) => {
-    
+    try {
+        const tarea = await Tarea.findById(req.params.id).populate('proyecto')
+
+        if(tarea.proyecto.creador.toString() !== req.usuario._id.toString() && !tarea.proyecto.colaboradores.some(colaborador => colaborador._id.toString() === req.usuario._id.toString())){
+            const error = new Error("No tienes permisos suficientes")
+            return res.status(401).json({ msg: error.message })
+        }
+
+        tarea.estado = !tarea.estado;
+        await tarea.save()
+        res.json(tarea)
+    } catch (error) {
+        console.log(error)
+    }
 }
