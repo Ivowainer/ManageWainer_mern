@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import capitalizeLetter from '../../../backend/helpers/capitalizeLetter'
+import capitalizeLetter from '../helpers/capitalizeLetter'
 import Alerta from '../components/Alerta'
 import FormularioColaborar from "../components/FormularioColaborar"
 import useProyectos from '../hooks/useProyectos'

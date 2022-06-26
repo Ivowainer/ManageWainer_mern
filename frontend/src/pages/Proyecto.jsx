@@ -5,6 +5,8 @@ import ModalFormularioTarea from '../components/ModalFormularioTarea'
 import ModalEliminarTarea from '../components/ModalEliminarTarea'
 import Tarea from '../components/Tarea'
 import Alerta from '../components/Alerta'
+import Colaborador from '../components/Colaborador'
+import ModalEliminarColaborador from '../components/ModalEliminarColaborador'
 
 const Proyecto = () => {
   const { obtenerProyecto, proyecto, cargando, handleModalTarea, alerta } = useProyectos()
@@ -62,8 +64,17 @@ const Proyecto = () => {
         </button>
       </div>
 
+      <div className=" flex flex-col  mt-10 rounded-lg">
+        {proyecto.colaboradores?.length ? (
+          proyecto.colaboradores?.map(colaborador => (
+            <Colaborador key={colaborador._id} colaborador={colaborador}/>
+          ))
+        ) : <p className='text-center my-5 p-10 border-b mb-2 bg-white shadow'>No hay colaboradores en el proyecto</p>}
+      </div>
+
       <ModalFormularioTarea />
       <ModalEliminarTarea />
+      <ModalEliminarColaborador />
     </>
   )
 }
