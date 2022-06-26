@@ -21,8 +21,7 @@ const Proyecto = () => {
 
   if(cargando) return 'Cargando...'
 
-  return ( 
-    alerta?.msg && alerta?.error ? <Alerta alerta={alerta} /> :(
+  return (
       <>
         <div className='flex justify-between'>
           <h1 className='font-black text-4xl'>{proyecto.nombre}</h1>
@@ -55,8 +54,6 @@ const Proyecto = () => {
         
 
         <p className='font-bold text-xl mt-10'>Tareas del Proyecto</p>
-
-        {alerta?.msg && <Alerta alerta={alerta} />}
 
         <div className=" flex flex-col  mt-10 rounded-lg">
           {proyecto.tareas?.length ? (
@@ -93,8 +90,6 @@ const Proyecto = () => {
         <ModalEliminarColaborador />
       </>
     )
-    
-  )
 }
 
 export default Proyecto
