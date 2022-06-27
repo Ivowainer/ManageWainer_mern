@@ -29,8 +29,8 @@ const NuevoColaborador = () => {
           <div className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow">
             <h2 className="text-center mb-10 text-1xl font-bold">Resultado:</h2>
 
-            <div className="flex justify-between items-center">
-              <p className='ml-10'>{capitalizeLetter(colaborador?.nombre)}</p>
+            <div className="flex justify-between items-center gap-4">
+              <p className='lg:ml-10'>{capitalizeLetter(colaborador?.nombre)}</p>
 
               <button onClick={() => agregarColaborador({ email: colaborador.email })} type='button' className='bg-slate-500 px-5 py-2 rounded-lg uppercase font-bold text-sm text-white'>Agregar al proyecto</button>
             </div>
