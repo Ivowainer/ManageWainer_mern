@@ -23,16 +23,8 @@ export const ProyectosProvider = ({ children }) => {
 
     const obtenerProyectos = async () => {
       try {
-        if(!token) return;
 
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          }
-        }
-
-        const { data } = await clienteAxios('/proyectos', config)
+        const { data } = await clienteAxios('/proyectos')
         setProyectos(data)
 
         
@@ -62,18 +54,7 @@ export const ProyectosProvider = ({ children }) => {
 
   const editarProyecto = async proyecto => {
     try {
-      const token = localStorage.getItem('token')
-
-      if(!token) return
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.put(`/proyectos/${proyecto.id}`, proyecto, config)
+      const { data } = await clienteAxios.put(`/proyectos/${proyecto.id}`, proyecto)
 
       const proyectosActualizados = proyectos.map(proyectoState => proyectoState._id === data._id ? data : proyectoState)
       setProyectos(proyectosActualizados)
@@ -94,18 +75,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const nuevoProyecto = async proyecto => {
     try {
-      const token = localStorage.getItem('token')
 
-      if(!token) return
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post('/proyectos', proyecto, config)
+      const { data } = await clienteAxios.post('/proyectos', proyecto)
 
       setProyectos([...proyectos, data])
       
@@ -126,17 +97,8 @@ export const ProyectosProvider = ({ children }) => {
   const obtenerProyecto = async id => {
     setCargando(true)
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios(`/proyectos/${id}`, config)
+      const { data } = await clienteAxios(`/proyectos/${id}`)
       setProyecto(data)
       setAlerta({})
     } catch (error) {
@@ -156,17 +118,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const eliminarProyecto = async id => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.delete(`/proyectos/${id}`, config)
+      const { data } = await clienteAxios.delete(`/proyectos/${id}`)
 
       const proyectosActualizados = proyectos.filter(proyectoState => proyectoState._id !== id)
       setProyectos(proyectosActualizados)
@@ -200,17 +153,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const crearTarea = async tarea => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post('/tareas', tarea, config)
+      const { data } = await clienteAxios.post('/tareas', tarea)
 
       // Agrega task al state
       const proyectoActualizado = {...proyecto}
@@ -226,17 +170,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const editarTarea = async tarea => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.put(`/tareas/${tarea.id}`, tarea, config)
+      const { data } = await clienteAxios.put(`/tareas/${tarea.id}`, tarea)
 
       const proyectoActualizado = {...proyecto}
       proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
@@ -262,17 +197,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const eliminarTarea = async () => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.delete(`/tareas/${tarea._id}`, config)
+      const { data } = await clienteAxios.delete(`/tareas/${tarea._id}`)
 
       const proyectoActualizado = {...proyecto}
       proyectoActualizado.tareas = proyectoActualizado.tareas?.filter(tareaState => tareaState._id !== tarea._id)
@@ -293,17 +219,8 @@ export const ProyectosProvider = ({ children }) => {
 
     setCargando(true)
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post('/proyectos/colaboradores', {email}, config)
+      const { data } = await clienteAxios.post('/proyectos/colaboradores', {email})
 
       setColaborador(data)
       setAlerta({})
@@ -319,17 +236,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const agregarColaborador = async email => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post(`/proyectos/colaboradores/${proyecto._id}`, email , config)
+      const { data } = await clienteAxios.post(`/proyectos/colaboradores/${proyecto._id}`, email)
 
       setAlerta({
         msg: data.msg,
@@ -360,17 +268,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const eliminarColaborador = async () => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post(`/proyectos/eliminar-colaborador/${proyecto._id}`, { id: colaborador._id } ,config)
+      const { data } = await clienteAxios.post(`/proyectos/eliminar-colaborador/${proyecto._id}`, { id: colaborador._id })
 
       const proyectoActualizado = {...proyecto}
       proyectoActualizado.colaboradores = proyectoActualizado.colaboradores.filter(colaboradorState => colaboradorState._id !== colaborador._id)
@@ -395,17 +294,8 @@ export const ProyectosProvider = ({ children }) => {
 
   const completarTarea = async id => {
     try {
-      const token = localStorage.getItem('token')
-      if(!token) return
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      }
-
-      const { data } = await clienteAxios.post(`/tareas/estado/${id}`, {}, config)
+      const { data } = await clienteAxios.post(`/tareas/estado/${id}`, {})
 
       const proyectoActualizado = {...proyecto}
 

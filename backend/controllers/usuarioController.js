@@ -55,12 +55,18 @@ export const autenticar = async (req, res) => {
 
     //Comprobar password
     if(await usuario.comprobarPassword(password)){
-        res.json({ 
+        const expires = new Date()
+        expires.setHours(expires.getHours() + 1);
+
+        res.cookie('token', generarJWT(usuario._id), {
+            expires,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production'
+        }).json({ 
             _id: usuario._id,
             nombre: usuario.nombre,
             email: usuario.email,
-            token: generarJWT(usuario._id)
-         })
+        })
     } else {
         const error = new Error('La contraseña es incorrecta')
         

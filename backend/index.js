@@ -1,6 +1,7 @@
 import express  from "express"
 import dotenv from 'dotenv';
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 import conectarDB from "./config/db.js"
 import usuarioRoutes from './routes/usuariosRoutes.js'
@@ -11,6 +12,7 @@ const app = express()
 app.use(express.json());
 
 // Middl
+app.use(cookieParser())
 dotenv.config()
 conectarDB()
 
@@ -24,7 +26,8 @@ const corsOptions = {
             // No se permite su Request
             callback(new Error('Error de Cors'))
         }
-    }
+    },
+    credentials: true
 }
 app.use(cors(corsOptions))
 

@@ -29,15 +29,16 @@ const Login = () => {
             const { data } = await clienteAxios.post('/usuarios/login', { email, password })
 
             setAlerta({})
-            localStorage.setItem('token', data.token)
             
             setAuth(data)
             navigate('/proyectos')
         } catch (error) {
-            setAlerta({
+            /* setAlerta({
                 msg: error.response.data.msg,
                 error: true
-            })
+            }) */
+
+            console.log(error)
 
             return;
         }
