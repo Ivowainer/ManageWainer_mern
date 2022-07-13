@@ -2,6 +2,7 @@ import express  from "express"
 import dotenv from 'dotenv';
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import { Server } from 'socket.io'
 
 import conectarDB from "./config/db.js"
 import usuarioRoutes from './routes/usuariosRoutes.js'
@@ -39,6 +40,20 @@ app.use('/api/tareas', tareaRoutes)
 
 const PORT = process.env.PORT || 4000
 
-app.listen(PORT, () => {
+const servidor = app.listen(PORT, () => {
     console.log(`servidor corriendo en el puerto: ${PORT}`)
+})
+
+//Socket.io
+const io = new Server(servidor, {
+    pingTimeout: 60000,
+    cors: {
+        origin: process.env.FRONTEND_URL,
+    },
+});
+
+io.on('connection', (socket) => {
+    console.log('Conectado a socket.io')
+
+    // Definir eventos de Socket Io
 })
