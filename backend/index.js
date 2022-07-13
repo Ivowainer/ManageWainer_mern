@@ -56,4 +56,7 @@ io.on('connection', (socket) => {
     console.log('Conectado a socket.io')
 
     // Definir eventos de Socket Io
+    socket.on('prueba', (proyectos) => {
+        console.log('Prueba', proyectos)
+    })
 })
