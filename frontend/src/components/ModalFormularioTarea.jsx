@@ -4,6 +4,9 @@ import useProyectos from '../hooks/useProyectos'
 import Alerta from './Alerta'
 import { useParams } from 'react-router-dom'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const PRIORIDAD = ['Baja', 'Media', 'Alta']
 
 const ModalFormularioTarea = () => {
@@ -13,7 +16,7 @@ const ModalFormularioTarea = () => {
   const [fechaEntrega, setFechaEntrega] = useState('')
   const [prioridad, setPrioridad] = useState('')
 
-  const { modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea, tarea } = useProyectos()
+  const { modalFormularioTarea, handleModalTarea, mostrarAlerta, alerta, submitTarea, tarea } = useContext(ProyectosContext)
 
   useEffect(() => {
     if(tarea?._id){

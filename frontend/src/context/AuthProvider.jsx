@@ -2,6 +2,8 @@ import { useState, useEffect, createContext } from 'react'
 import clienteAxios from '../config/clienteAxios'
 import { useNavigate } from 'react-router-dom'
 
+let socket;
+
 const AuthContext = createContext()
 
 export const AuthProvider  = ({ children }) => {

@@ -3,10 +3,13 @@ import { useEffect } from 'react'
 import { useParams }from 'react-router-dom'
 import FormularioProyecto from '../components/FormularioProyecto'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const EditarProyecto = () => {
   const params = useParams()
   
-  const { obtenerProyecto, eliminarProyecto, proyecto, cargando } = useProyectos()
+  const { obtenerProyecto, eliminarProyecto, proyecto, cargando } = useContext(ProyectosContext)
 
   useEffect(() => {
     obtenerProyecto(params.id)

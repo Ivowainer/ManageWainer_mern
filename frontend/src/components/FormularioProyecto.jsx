@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom'
 import useProyectos from '../hooks/useProyectos'
 import Alerta from './Alerta'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const FormularioProyecto = () => {
   const [id, setId] = useState(null)
   const [nombre, setNombre] = useState('')
@@ -13,7 +16,7 @@ const FormularioProyecto = () => {
 
   const params = useParams()
 
-  const { mostrarAlerta, alerta, submitProyecto, proyecto } = useProyectos()
+  const { mostrarAlerta, alerta, submitProyecto, proyecto } = useContext(ProyectosContext)
   
   useEffect(() => {
     if( params.id ){

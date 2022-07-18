@@ -3,9 +3,12 @@ import Header from '../components/Header'
 import Sidebar from '../components/SideBar'
 import useAuth from '../hooks/useAuth'
 
+import { useContext } from 'react'
+import AuthContext from '../context/AuthProvider'
+
 const RutaProtegida = () => {
 
-  const { auth, cargando } = useAuth()
+  const { auth, cargando } = useContext(AuthContext)
 
   if(cargando) return 'cargando...'
   return (

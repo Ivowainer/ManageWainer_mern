@@ -2,6 +2,9 @@ import { Fragment, useState } from 'react'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -9,7 +12,7 @@ function classNames(...classes) {
 const Busqueda = () => {
     const [ busqueda, setBusqueda ] = useState('')
     
-    const { buscador, proyectos, setBuscador } = useProyectos()
+    const { buscador, proyectos, setBuscador } = useContext(ProyectosContext)
 
     const proyectosFiltrados = busqueda === '' ? [] : proyectos.filter(proyecto => proyecto.nombre.toLowerCase().includes(busqueda.toLowerCase()))
     

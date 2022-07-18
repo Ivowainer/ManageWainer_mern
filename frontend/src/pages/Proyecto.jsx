@@ -9,19 +9,40 @@ import Colaborador from '../components/Colaborador'
 import ModalEliminarColaborador from '../components/ModalEliminarColaborador'
 import useAdmin from '../hooks/useAdmin'
 
+import { io } from 'socket.io-client'
+
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
+const socket = io(import.meta.env.VITE_BACKEND_URL)
+
 const Proyecto = () => {
-  const { obtenerProyecto, proyecto, cargando, handleModalTarea, alerta } = useProyectos()
+  const { obtenerProyecto, proyecto, cargando, handleModalTarea, submitTareasProyecto } = useContext(ProyectosContext)
   const admin = useAdmin()
   
   const params = useParams()
 
   useEffect(() => {
     obtenerProyecto(params.id)
+
+    socket.emit('abrir_proyecto', params.id)
+    console.log(proyecto._id)
   }, [])
 
-  if(cargando) return 'Cargando...'
+  useEffect(() => {
+    socket.on('agregar_tarea', tareaNueva => {
+      if(tareaNueva.proyecto === proyecto._id){
+        submitTareasProyecto(tareaNueva)
+      }
+      console.log(tareaNueva.proyecto)
+      console.log(proyecto._id)
 
-  console.log(proyecto)
+      console.log(tareaNueva.proyecto === proyecto._id)
+
+    })
+  })
+
+  if(cargando) return 'Cargando...'
 
   return (
       <>

@@ -2,10 +2,12 @@ import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
 
 const ModalEliminarTarea = () => {
 
-    const { modalEliminarTarea, handleModalEliminarTarea, eliminarTarea } = useProyectos()
+    const { modalEliminarTarea, handleModalEliminarTarea, eliminarTarea } = useContext(ProyectosContext)
  
     return (
         <Transition.Root show={ modalEliminarTarea } as={Fragment}>

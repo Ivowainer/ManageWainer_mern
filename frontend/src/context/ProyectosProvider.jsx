@@ -2,7 +2,11 @@ import { useState, useEffect, createContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clienteAxios from '../config/clienteAxios'
 
+import { io } from 'socket.io-client'
+
 const ProyectosContext = createContext()
+
+const socket = io(import.meta.env.VITE_BACKEND_URL)
 
 export const ProyectosProvider = ({ children }) => {
   const [proyectos, setProyectos] = useState([])
@@ -19,22 +23,21 @@ export const ProyectosProvider = ({ children }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
 
     const obtenerProyectos = async () => {
       try {
 
         const { data } = await clienteAxios('/proyectos')
         setProyectos(data)
-
         
       } catch (error) {
         console.log(error)
       }
     }
-
+    
     obtenerProyectos()
-  }, [])
+    
+  }, [proyectos])
 
   const mostrarAlerta = alerta => {
     setAlerta(alerta)
@@ -156,13 +159,11 @@ export const ProyectosProvider = ({ children }) => {
 
       const { data } = await clienteAxios.post('/tareas', tarea)
 
-      // Agrega task al state
-      const proyectoActualizado = {...proyecto}
-      proyectoActualizado.tareas = [...proyecto.tareas, data]
-
-      setProyecto(proyectoActualizado)
       setAlerta({})
       setModalFormularioTarea(false)
+
+      // SOCKET IO
+      socket.emit('nueva_tarea', data)
     } catch (error) {
       console.log(error)
     }
@@ -309,7 +310,16 @@ export const ProyectosProvider = ({ children }) => {
     }
   } 
 
-  const hanldeBuscador = () => {
+  // SOCKET IO
+  const submitTareasProyecto = tareaNueva =>{
+    // Agrega task al state
+    const proyectoActualizado = {...proyecto}
+    proyectoActualizado.tareas = [...proyectoActualizado.tareas, tareaNueva]
+
+    setProyecto(proyectoActualizado)
+  }
+
+  const handleBuscador = () => {
     setBuscador(!buscador)    
   }  
   return (
@@ -338,9 +348,10 @@ export const ProyectosProvider = ({ children }) => {
         modalEliminarColaborador,
         eliminarColaborador,
         completarTarea,
-        hanldeBuscador,
+        handleBuscador,
         buscador,
-        setBuscador
+        setBuscador,
+        submitTareasProyecto
       }}
     >{children}
     </ProyectosContext.Provider>

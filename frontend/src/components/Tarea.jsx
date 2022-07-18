@@ -2,10 +2,13 @@ import formatearFecha from "../helpers/formatearFecha"
 import useProyectos from "../hooks/useProyectos"
 import useAdmin from "../hooks/useAdmin"
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const Tarea = ({ tarea }) => {
     const admin = useAdmin()
 
-    const { handleModalEditarTarea, handleModalEliminarTarea, completarTarea } = useProyectos()
+    const { handleModalEditarTarea, handleModalEliminarTarea, completarTarea } = useContext(ProyectosContext)
 
     const { descripcion, prioridad, nombre, fechaEntrega, estado, _id } = tarea
 

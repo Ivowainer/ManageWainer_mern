@@ -2,9 +2,12 @@ import React from 'react'
 import capitalizeLetter from '../helpers/capitalizeLetter'
 import useProyectos from '../hooks/useProyectos'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const Colaborador = ({ colaborador }) => {
 
-    const { handleModalEliminarColaborador } = useProyectos()
+    const { handleModalEliminarColaborador } = useContext(ProyectosContext)
 
     const { nombre, email } = colaborador
         

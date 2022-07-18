@@ -4,17 +4,11 @@ import Alerta from '../components/Alerta'
 import PreviewProyecto from '../components/PreviewProyecto'
 import useProyectos from '../hooks/useProyectos'
 
-import io from 'socket.io-client'
-
-let socket;
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
 
 const Proyectos = () => {
-  const { proyectos, alerta } = useProyectos()
-
-  useEffect(() => {
-    socket = io(import.meta.env.VITE_BACKEND_URL)
-    socket.emit('prueba', proyectos)
-  }, [])
+  const { proyectos, alerta } = useContext(ProyectosContext)
 
   return (
     <>

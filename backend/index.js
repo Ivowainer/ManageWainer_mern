@@ -53,10 +53,13 @@ const io = new Server(servidor, {
 });
 
 io.on('connection', (socket) => {
-    console.log('Conectado a socket.io')
-
     // Definir eventos de Socket Io
-    socket.on('prueba', (proyectos) => {
-        console.log('Prueba', proyectos)
-    })
+    socket.on('abrir_proyecto', (proyecto) => {
+        socket.join(proyecto)
+    });
+
+    socket.on("nueva_tarea", (tarea) => {
+        socket.to(tarea.proyecto).emit('agregar_tarea', tarea)
+    });
+
 })

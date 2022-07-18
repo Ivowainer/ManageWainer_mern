@@ -5,8 +5,11 @@ import Alerta from '../components/Alerta'
 import FormularioColaborar from "../components/FormularioColaborar"
 import useProyectos from '../hooks/useProyectos'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const NuevoColaborador = () => {
-  const { obtenerProyecto, proyecto, cargando, colaborador, agregarColaborador, alerta } = useProyectos()
+  const { obtenerProyecto, proyecto, cargando, colaborador, agregarColaborador, alerta } = useContext(ProyectosContext)
 
   const params = useParams()
 

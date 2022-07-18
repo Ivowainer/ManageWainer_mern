@@ -4,12 +4,15 @@ import Alerta from '../components/Alerta'
 import clienteAxios from '../config/clienteAxios'
 import useAuth from '../hooks/useAuth'
 
+import { useContext } from 'react'
+import AuthContext from '../context/AuthProvider'
+
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [alerta, setAlerta] = useState({})
 
-    const { setAuth, auth } = useAuth()
+    const { setAuth, auth } = useContext(AuthContext)
 
     const navigate = useNavigate()
 

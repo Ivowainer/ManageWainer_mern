@@ -2,10 +2,12 @@ import { Fragment  } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
 
 const ModalEliminarColaborador = () => {
 
-    const { modalEliminarColaborador, handleModalEliminarColaborador, eliminarColaborador } = useProyectos()
+    const { modalEliminarColaborador, handleModalEliminarColaborador, eliminarColaborador } = useContext(ProyectosContext)
  
     return (
         <Transition.Root show={ modalEliminarColaborador } as={Fragment}>

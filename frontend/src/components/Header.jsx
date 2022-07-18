@@ -2,8 +2,11 @@ import { Link } from 'react-router-dom'
 import useProyectos from '../hooks/useProyectos'
 import Busqueda from './Busqueda'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const Header = () => {
-  const { hanldeBuscador } = useProyectos()
+  const { handleBuscador } = useContext(ProyectosContext)
 
   return (
     <header className="px-4 py-5 bg-white border-b">
@@ -16,7 +19,7 @@ const Header = () => {
               <button 
                 type='button'
                 className='font-bold uppercase'
-                onClick={hanldeBuscador}
+                onClick={handleBuscador}
               >Buscar Proyecto</button>
                 <Link to="/proyectos" className='font-bold uppercase'>Proyectos</Link>
 

@@ -2,10 +2,13 @@ import { useState } from 'react'
 import useProyectos from '../hooks/useProyectos'
 import Alerta from './Alerta'
 
+import { useContext } from 'react'
+import ProyectosContext from '../context/ProyectosProvider'
+
 const FormularioColaborar = () => {
     const [email, setEmail] = useState('')
 
-    const { mostrarAlerta, alerta, submitColaborador } = useProyectos()
+    const { mostrarAlerta, alerta, submitColaborador } = useContext(ProyectosContext)
 
     const handleSubmit = e => {
         e.preventDefault()
