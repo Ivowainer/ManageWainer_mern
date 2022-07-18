@@ -1,6 +1,7 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import clienteAxios from '../config/clienteAxios'
+import AuthContext from './AuthProvider'
 
 import { io } from 'socket.io-client'
 
@@ -9,6 +10,8 @@ const ProyectosContext = createContext()
 const socket = io(import.meta.env.VITE_BACKEND_URL)
 
 export const ProyectosProvider = ({ children }) => {
+  const { auth } = useContext(AuthContext)
+
   const [proyectos, setProyectos] = useState([])
   const [proyecto, setProyecto] = useState({})
   const [alerta, setAlerta] = useState({})
@@ -37,7 +40,7 @@ export const ProyectosProvider = ({ children }) => {
     
     obtenerProyectos()
     
-  }, [proyectos])
+  }, [proyectos, auth])
 
   const mostrarAlerta = alerta => {
     setAlerta(alerta)

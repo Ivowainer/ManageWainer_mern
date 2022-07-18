@@ -161,6 +161,12 @@ export const nuevoPassword = async (req, res) => {
     }
 }
 
+export const cerrarSesion = async(req, res) => {
+    res.clearCookie('token')
+
+    res.send('cookie token cleared');
+}
+
 export const perfil = async (req, res)  => {
     const { usuario } = req
 

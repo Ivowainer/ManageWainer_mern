@@ -4,9 +4,11 @@ import Busqueda from './Busqueda'
 
 import { useContext } from 'react'
 import ProyectosContext from '../context/ProyectosProvider'
+import AuthProvider from '../context/AuthProvider'
 
 const Header = () => {
   const { handleBuscador } = useContext(ProyectosContext)
+  const { cerrarSesion } = useContext(AuthProvider)
 
   return (
     <header className="px-4 py-5 bg-white border-b">
@@ -23,7 +25,11 @@ const Header = () => {
               >Buscar Proyecto</button>
                 <Link to="/proyectos" className='font-bold uppercase'>Proyectos</Link>
 
-                <button type='button' className='text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold'>Cerrar Sesión</button>
+                <button 
+                  type='button' 
+                  className='text-white text-sm bg-sky-600 p-3 rounded-md uppercase font-bold'
+                  onClick={() => cerrarSesion()}
+                >Cerrar Sesión</button>
 
                 <Busqueda />
             </div>

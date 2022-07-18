@@ -26,7 +26,6 @@ const Proyecto = () => {
     obtenerProyecto(params.id)
 
     socket.emit('abrir_proyecto', params.id)
-    console.log(proyecto._id)
   }, [])
 
   useEffect(() => {

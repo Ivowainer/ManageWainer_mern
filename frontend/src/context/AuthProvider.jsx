@@ -19,7 +19,7 @@ export const AuthProvider  = ({ children }) => {
                 const { data } = await clienteAxios('/usuarios/perfil')
                 setAuth(data)
 
-                /* navigate('/proyectos') */ //TODO: THIS
+                navigate('/proyectos')
             } catch (error) {
                 setAuth({})
             }
@@ -29,13 +29,25 @@ export const AuthProvider  = ({ children }) => {
 
         autenticarUsuario()
     }, [])
+    
+    const cerrarSesion = () => {
+        try {
+            const { data } = clienteAxios('/usuarios/logout')
+
+            setAuth({})
+            navigate('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <AuthContext.Provider 
             value={{
                 auth,
                 setAuth,
-                cargando
+                cargando,
+                cerrarSesion
             }}
         >
             {children}
