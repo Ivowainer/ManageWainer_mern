@@ -174,13 +174,11 @@ export const ProyectosProvider = ({ children }) => {
 
       const { data } = await clienteAxios.put(`/tareas/${tarea.id}`, tarea)
 
-      const proyectoActualizado = {...proyecto}
-      proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
-
-      setProyecto(proyectoActualizado)
-
       setAlerta({})
       setModalFormularioTarea(false)
+
+      // SOCKET
+      socket.emit('actualizar_tarea', data)
     } catch (error) {
       console.log(error)
     }
@@ -200,16 +198,17 @@ export const ProyectosProvider = ({ children }) => {
     try {
 
       const { data } = await clienteAxios.delete(`/tareas/${tarea._id}`)
+      
+      setModalEliminarTarea(false)
+      
+      // SOCKET
+      socket.emit('eliminar_tarea', tarea)
 
-      const proyectoActualizado = {...proyecto}
-      proyectoActualizado.tareas = proyectoActualizado.tareas?.filter(tareaState => tareaState._id !== tarea._id)
       setAlerta({
         msg: data.msg,
         error: false
       })
-      setProyecto(proyectoActualizado)
-      
-      setModalEliminarTarea(false)
+
       setTarea({})
     } catch (error) {
       console.log(error)
@@ -311,10 +310,23 @@ export const ProyectosProvider = ({ children }) => {
   } 
 
   // SOCKET IO
-  const submitTareasProyecto = tareaNueva =>{
+  const submitTareasProyecto = tareaNueva => {
     // Agrega task al state
     const proyectoActualizado = {...proyecto}
     proyectoActualizado.tareas = [...proyectoActualizado.tareas, tareaNueva]
+
+    setProyecto(proyectoActualizado)
+  }
+
+  const eliminarTareaProyecto = tarea => {
+    const proyectoActualizado = {...proyecto}
+    proyectoActualizado.tareas = proyectoActualizado.tareas?.filter(tareaState => tareaState._id !== tarea._id)
+    setProyecto(proyectoActualizado)
+  }
+
+  const actualizarTareaProyecto = tarea => {
+    const proyectoActualizado = {...proyecto}
+    proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === tarea._id ? tarea : tareaState)
 
     setProyecto(proyectoActualizado)
   }
@@ -333,25 +345,14 @@ export const ProyectosProvider = ({ children }) => {
         proyecto,
         cargando,
         eliminarProyecto,
-        modalFormularioTarea,
-        handleModalTarea,
-        submitTarea,
-        handleModalEditarTarea,
-        tarea,
-        handleModalEliminarTarea,
-        modalEliminarTarea,
-        eliminarTarea,
-        submitColaborador,
-        colaborador,
-        agregarColaborador,
-        handleModalEliminarColaborador,
-        modalEliminarColaborador,
-        eliminarColaborador,
+        modalFormularioTarea, handleModalTarea, submitTarea, handleModalEditarTarea, tarea,
+        handleModalEliminarTarea, modalEliminarTarea, eliminarTarea,
+        submitColaborador, colaborador, agregarColaborador, handleModalEliminarColaborador, modalEliminarColaborador, eliminarColaborador,
         completarTarea,
         handleBuscador,
         buscador,
         setBuscador,
-        submitTareasProyecto
+        submitTareasProyecto, eliminarTareaProyecto, actualizarTareaProyecto
       }}
     >{children}
     </ProyectosContext.Provider>

@@ -62,4 +62,12 @@ io.on('connection', (socket) => {
         socket.to(tarea.proyecto).emit('agregar_tarea', tarea)
     });
 
+    socket.on('eliminar_tarea', tarea => {
+        socket.to(tarea.proyecto).emit('tarea_eliminada', tarea)
+    })
+
+    socket.on('actualizar_tarea', tarea => {
+        socket.to(tarea.proyecto._id).emit('tarea_actualizada', tarea)
+    })
+
 })

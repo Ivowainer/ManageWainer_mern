@@ -17,7 +17,7 @@ import ProyectosContext from '../context/ProyectosProvider'
 const socket = io(import.meta.env.VITE_BACKEND_URL)
 
 const Proyecto = () => {
-  const { obtenerProyecto, proyecto, cargando, handleModalTarea, submitTareasProyecto } = useContext(ProyectosContext)
+  const { obtenerProyecto, proyecto, cargando, handleModalTarea, submitTareasProyecto, eliminarTareaProyecto, actualizarTareaProyecto } = useContext(ProyectosContext)
   const admin = useAdmin()
   
   const params = useParams()
@@ -34,11 +34,18 @@ const Proyecto = () => {
       if(tareaNueva.proyecto === proyecto._id){
         submitTareasProyecto(tareaNueva)
       }
-      console.log(tareaNueva.proyecto)
-      console.log(proyecto._id)
+    })
 
-      console.log(tareaNueva.proyecto === proyecto._id)
+    socket.on('tarea_eliminada', tareaEliminada => {
+      if(tareaEliminada.proyecto === proyecto._id){
+        eliminarTareaProyecto(tareaEliminada)
+      }
+    })
 
+    socket.on('tarea_actualizada', tareaActualizada => {
+      if(tareaActualizada.proyecto._id === proyecto._id) {
+        actualizarTareaProyecto(tareaActualizada)
+      }
     })
   })
 
