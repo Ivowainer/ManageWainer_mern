@@ -1,7 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom'
 import Header from '../components/Header'
-import Sidebar from '../components/SideBar'
-import useAuth from '../hooks/useAuth'
+import Sidebar from '../components/Sidebar'
 
 import { useContext } from 'react'
 import AuthContext from '../context/AuthProvider'

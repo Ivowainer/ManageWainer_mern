@@ -4,9 +4,9 @@ import Usuario from "../models/Usuario.js";
 const checkAuth = async (req, res, next) => {
     let token;
 
-    if(req.cookies?.token){
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         try {
-            token = await req.cookies.token
+            token = await req.headers.authorization.split(' ')[1]
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

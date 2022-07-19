@@ -15,8 +15,22 @@ export const AuthProvider  = ({ children }) => {
 
     useEffect(() => {
         const autenticarUsuario = async () => {
+            const token = localStorage.getItem('token')
+
+            if(!token){
+                setCargando(false)
+                return;
+            }
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
             try {
-                const { data } = await clienteAxios('/usuarios/perfil')
+                const { data } = await clienteAxios('/usuarios/perfil', config)
                 setAuth(data)
 
                 navigate('/proyectos')
@@ -33,6 +47,8 @@ export const AuthProvider  = ({ children }) => {
     const cerrarSesion = () => {
         try {
             const { data } = clienteAxios('/usuarios/logout')
+
+            localStorage.clear()
 
             setAuth({})
             navigate('/')
