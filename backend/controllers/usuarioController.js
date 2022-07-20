@@ -96,15 +96,16 @@ export const olvidePassword = async (req, res) => {
 
     const usuario = await Usuario.findOne({ email })
 
-    if(usuario.confirmado === false){
-        const error = new Error('El usuario no está confirmado')
-        return res.status(404).json({ msg: error.message })
-    }
-
     if(!usuario){
         const error = new Error('El usuario no existe')
         return res.status(404).json({ msg: error.message })
     }
+    
+    if(usuario?.confirmado === false){
+        const error = new Error('El usuario no está confirmado')
+        return res.status(404).json({ msg: error.message })
+    }
+
 
     try {
         usuario.token =  generarId()
@@ -119,8 +120,9 @@ export const olvidePassword = async (req, res) => {
         })
 
         res.json({ msg: "Hemos enviado un email con las instrucciones" })
-    } catch (error) {
-        console.log(error)
+    } catch  {
+        const error = new Error('El usuario no se encuentra confirmado o no existe')
+        res.status(403).json({ msg: error.message })
     }
 }
 

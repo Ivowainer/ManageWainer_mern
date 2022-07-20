@@ -1,0 +1,6 @@
+{
+    "service": "gmail",
+    "auth": {
+        "type": "OAuth" ,
+    }
+}
