@@ -11,6 +11,25 @@ This is one of my first projects with MERN stack.
 - 👥 You can add a real collaborators who can complete the task
 - 📫 How to reach me: [Gmail](mailto:ivancamposwainer@gmail.com)
 
+```javascript
+Language: JavaScript
+Backend:
+  - Express
+  - GoogleApis
+  - NodeMailer
+  - Socket.io
+  - JWT
+  - BCrypt
+  - Mongoose
+  - MongoDB
+Frontend:
+  - React
+  - React Router Dom
+  - Tailwind
+  - Vite
+  - Axios
+```
+
 You may qualify me to help me⭐️ 
 
 # You can use the demo :))
